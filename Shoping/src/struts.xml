@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+<!-- User -->
+	<package name="User" namespace="/User"
+		extends="struts-default, json-default">
+		
+	<!-- 登录 -->
+	<action name="login" class="loginAction" method="login">
+
+	<result name="success" type="redirect">/index.jsp</result>
+	<result name="error" type="redirect">/index.jsp</result></action>
+	<!-- 登出 -->
+	<action name="loginOut" class="loginAction" method="loginOut">
+	</action>
+	<!-- 注册 -->
+	<action name="reg" class="loginAction" method="reg">
+	<result name="success">
+	/regvalide.jsp
+	</result>
+	</action>
+	<!-- 我的当当 -->
+	<action name="toBackstage" class="loginAction" method="toBackstage">
+	<result name="success">/user.jsp</result>
+	</action>
+	<!-- 注册邮箱验证 -->
+	<action name="regvalide" class="loginAction" method="regvalide">
+	<result name="success">
+	/index.jsp
+	</result>
+	<result name="error">
+	/regvalide.jsp
+	</result>
+	</action>
+	<!-- 验证码 -->
+	<action name="validat" class="loginAction" method="validat">
+	<result name="json" type="json">
+	<param name="root">validat</param>
+	</result>
+	</action>
+</package>
+<!-- cat -->
+	<package name="Cat" namespace="/Cat"
+		extends="json-default, struts-default">
+	<action name="catLoad" class="catAction" method="catLoad">
+	<result name="success" >/leftcat.jsp</result>
+	</action>	
+	</package>
+<!-- bookde -->	
+	<package name="BookDetial" namespace="/BookDetial"
+		extends="json-default, struts-default">
+	<!-- 书籍翻页搜索 -->
+	<action name="seach" class="bookDetialAction" method="bookDetial">
+	<result name="json" >
+	/index.jsp
+	</result>
+	</action>
+	<!-- 编辑推荐 -->	
+	<action name="recommend" class="bookDetialAction" method="recommend">
+	<result name="recommend" >
+	/Recommed.jsp
+	</result>
+	</action>
+	<!-- 新书 -->
+	<action name="newbook" class="bookDetialAction" method="newbook">
+	<result name="book" >
+	/newbook.jsp
+	</result>
+	</action>
+	<!-- 书籍购物处 -->
+	<action name="bookdisplay" class="bookDetialAction" method="bookone">
+	<result name="bookone">/Bookdisplay.jsp</result>
+	</action>
+	</package>
+	<!-- shop -->
+	<!--  -->
+	<package name="Shop" namespace="/Shop"
+		extends="struts-default, json-default">
+		<action name="toaddress" class="shopAction" method="toaddress">
+		<result name="success">/address.jsp</result>
+		</action>
+		<!-- 地址添加 -->
+	<action name="address" class="shopAction" method="address">
+	<result name="success">/orderend.jsp</result>
+	</action>
+	<action name="shoptrans" class="shopAction" method="shoptrans">
+	<result name="shoptrans">
+	/Shoptrans.jsp
+	</result>
+	</action>
+	<action name="shoptransremove" class="shopAction" method="shoptransremove">
+	<result name="remove">
+	/Shoptrans.jsp
+	</result>
+	</action>
+	<action name="shoptransadd" class="shopAction" method="shoptransadd">
+	<result name="add">
+	/index.jsp
+	</result>
+	</action>
+	<!-- 添加订单前奏 -->
+	<action name="itemselect" class="shopAction" method="itemselect">
+	<result name="success" type="json">
+	<param name="root">totalprice</param>
+	</result>
+	</action>
+	<!-- 添加订单中部  -->
+	<action name="orderop" class="shopAction" method="orderop">
+	<result name="success">/orderend.jsp</result>
+	</action>
+	<!-- 地址修改 -->
+	<action name="addressupdate" class="shopAction" method="addressupdate">
+
+	</action>
+	<action name="orderOK" class="shopAction" method="orderOK">
+	<result name="success">
+	/orderok.jsp
+	</result>
+	</action>
+	</package>
+	</struts>    

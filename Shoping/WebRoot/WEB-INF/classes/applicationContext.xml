@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+
+	<bean id="dataSource"
+		class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName"
+			value="com.mysql.jdbc.Driver">
+		</property>
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/dangdang">
+		</property>
+		<property name="username" value="root"></property>
+		<property name="password" value="123456"></property>
+	</bean>
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLDialect
+				</prop>
+			</props>
+		</property>
+		<property name="mappingResources">
+			<list>
+				<value>entiy/DOrder.hbm.xml</value>
+				<value>entiy/DItem.hbm.xml</value>
+				<value>entiy/DCategoryProduct.hbm.xml</value>
+				<value>entiy/DReceiveAddress.hbm.xml</value>
+				<value>entiy/DProduct.hbm.xml</value>
+				<value>entiy/DCategory.hbm.xml</value>
+				<value>entiy/DBook.hbm.xml</value>
+				<value>entiy/DUser.hbm.xml</value>
+				</list>
+		</property></bean>
+		<!-- user -->
+		<bean id="loginAction" class="action.LoginAction">
+		<property name="userSever" ref="userSever"></property>
+		<property name="shopSever" ref="shopSever"></property>
+		</bean>
+		<bean id="userSever" class="service.UserSeverImpl">
+		<property name="userDao" ref="userDao"></property>
+		</bean>
+		<bean id="userDao" class="dao.UserDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+		</bean>
+		
+		<!-- cat -->
+		<bean id="catAction" class="action.CatAction">
+		<property name="catSever" ref="catSever"></property>
+		</bean>
+		<bean id="catSever" class="service.CatSeverImpl">
+		<property name="catDao" ref="catDao"></property>
+		</bean>
+		<bean id="catDao" class="dao.CatDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+		</bean>
+		
+		<!-- PR -->
+	<bean id="bookDetialAction" class="action.BookDetialAction">
+	<property name="bookDetialSever" ref="bookDetialSever"></property>
+	</bean>
+	<bean id="bookDetialSever" class="service.BookDetialSeverImpl">
+	<property name="bookDetialDao" ref="bookDetialDao"></property>
+	</bean>
+	<bean id="bookDetialDao" class="dao.BookDetialDaoImpl">
+	<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>	
+	<!-- Shop -->
+	<bean id="shopAction" class="action.ShopAction">
+	<property name="shopSever" ref="shopSever"></property>
+	</bean>
+	<bean id="shopSever" class="service.ShopSeverImpl">
+	<property name="shopDao" ref="shopDao"></property>
+	</bean>
+	<bean id="shopDao" class="dao.ShopDaoImpl">
+	<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	
+		</beans>
